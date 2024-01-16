@@ -1,6 +1,6 @@
 # The Mechanics of Proof
 
-This repository contains the Lean code for the book [The Mechanics of Proof](https://hrmacbeth.github.io/math2001), by [Heather Macbeth](https://faculty.fordham.edu/hmacbeth1), developed for the course Math 2001 at Fordham University.
+This repository contains the Lean code for the book [The Mechanics of Proof](https://hrmacbeth.github.io/math2001), by [Heather Macbeth](https://faculty.fordham.edu/hmacbeth1), developed for the course Math 2001 at Fordham University. This repository is for David Swinarski's Math 2001 section R01 in Spring 2024.
 
 The Lean files corresponding to each chapter of the book are in the folder [`Math2001`](https://github.com/dswinarski/math2001/tree/main/Math2001).
 
