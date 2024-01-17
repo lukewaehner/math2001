@@ -7,9 +7,8 @@ math2001_init
 
 /-! # Homework 0
 
-Don't forget to compare with the text version,
-https://hrmacbeth.github.io/math2001/Homework.html#homework-0
-for clearer statements and any special instructions. -/
+Remember to compare with the pdf file in Blackboard 
+for additional instructions. -/
 
 
 @[autograded 5]
