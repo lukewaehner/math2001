@@ -8,10 +8,17 @@ math2001_init
 
 /-! # Homework 0
 
-Remember to compare with the pdf file in Blackboard 
+Remember to compare with the pdf file in Blackboard
 for additional instructions. -/
 
 
 @[autograded 5]
 theorem problem1 {n : ℤ} (hn : n ≥ 5) : n ^ 2 > 2 * n + 11 :=
-  sorry
+  calc
+    n^2 = n*n := by ring
+    _ >= 5*n := by rel[hn]
+    _ = 2*n + 3*n := by ring
+    _ >= 2*n + 3*5 := by rel[hn]
+    _ = 2*n + 15 := by ring
+    _ = 2*n + 11 + 4 := by ring
+    _ > 2*n + 11 := by extra
