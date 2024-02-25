@@ -64,4 +64,12 @@ theorem problem4 {x : ℚ} : x ^ 2 - 4 * x ≥ -4 := by
 
 @[autograded 5]
 theorem problem5 (a b : ℝ) (h1 : -b ≤ a) (h2 : a ≤ b) : a ^ 2 ≤ b ^ 2 := by
-  sorry
+  have h3 : a - b <= 0 := by addarith[h2]
+  have needed : 0 <= a + b := by addarith[h1]
+  have h4 :=
+    calc
+      a^2 - b^2 = (a-b)*(a+b) := by ring
+      _ <= (0)*(a+b) := by rel[h3]
+      _ = 0 := by ring
+  have h5 : a^2 <= b^2 := by addarith[h4]
+  apply h5
