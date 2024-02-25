@@ -21,11 +21,27 @@ Questions 1-5 do not have Lean components.-/
 
 @[autograded 4]
 theorem problem6 (P Q : Prop) : (P ∨ Q) ↔ (Q ∨ P) := by
-  sorry
+  constructor
+  intro h
+  obtain h1 | h2 := h
+  right
+  apply h1
+  left
+  apply h2
+  intro h3
+  obtain h4 | h5 := h3
+  right
+  apply h4
+  left
+  apply h5
+
 
 @[autograded 5]
 theorem problem7 (P : α → Prop) (Q : Prop) : ((∃ x, P x) ∧ Q) ↔ ∃ x, (P x ∧ Q) := by
-  sorry
+  constructor
+  intro b
+  obtain ⟨ b1, b2 ⟩ := b
+
 
 
 @[autograded 4]

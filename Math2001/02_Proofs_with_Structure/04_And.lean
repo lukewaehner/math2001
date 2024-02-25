@@ -34,12 +34,12 @@ example {a b : ℝ} (h1 : a - 5 * b = 4) (h2 : b + 2 = 3) : a = 9 ∧ b = 1 := b
 
 example {a b : ℝ} (h1 : a - 5 * b = 4) (h2 : b + 2 = 3) : a = 9 ∧ b = 1 := by
   have hb : b = 1 := by addarith [h2]
-  constructor
-  · calc
-      a = 4 + 5 * b := by addarith [h1]
-      _ = 4 + 5 * 1 := by rw [hb]
+  constructor --splits the and up into two goals
+  · calc -- calculates that a = 9
+      a = (a - 5*b + 5*b) := by ring
+      _ = 4 + 5*1 := by rw [h1, hb]
       _ = 9 := by ring
-  · apply hb
+  · apply hb -- shows that b = 1
 
 
 example {a b : ℝ} (h1 : a ^ 2 + b ^ 2 = 0) : a = 0 ∧ b = 0 := by
@@ -74,4 +74,23 @@ example {x y : ℚ} (h : x + y = 5 ∧ x + 2 * y = 7) : x = 3 ∧ y = 2 := by
 
 example {a b : ℝ} (h1 : a * b = a) (h2 : a * b = b) :
     a = 0 ∧ b = 0 ∨ a = 1 ∧ b = 1 := by
-  sorry
+  have ab : a = b := by
+    calc
+      a = a*b := by rw[h1]
+      _ = b := by rw[h2]
+  have test :=
+  calc
+    a*(b-1) = a*b - a := by ring
+    _ = a - a := by rw[h1]
+    _ = 0 := by ring
+  have h4 := eq_zero_or_eq_zero_of_mul_eq_zero test
+  obtain hr1 | hr2 := h4
+  left
+  constructor
+  apply hr1
+  calc
+    b = a := by rw[ab]
+    _ = 0 := by rw[hr1]
+  right
+  constructor
+  have supertest := b

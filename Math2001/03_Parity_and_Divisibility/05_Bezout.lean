@@ -14,7 +14,13 @@ example {n : ℤ} (hn : 8 ∣ 5 * n) : 8 ∣ n := by
 
 
 example {n : ℤ} (hn : 8 ∣ 5 * n) : 8 ∣ n := by
-  sorry
+  obtain ⟨k, hk⟩ := hn
+  use (5*k - 3*n)
+  calc
+    n = 25*n - 24*n := by ring
+    _ = 5*(5*n) - 24*n := by ring
+    _ = 5*(8*k) - 24*n := by rw[hk]
+    _ = 8*(5*k - 3*n) := by ring
 
 example {n : ℤ} (h1 : 5 ∣ 3 * n) : 5 ∣ n := by
   sorry
@@ -33,7 +39,16 @@ example {m : ℤ} (h1 : 8 ∣ m) (h2 : 5 ∣ m) : 40 ∣ m := by
 
 
 example {n : ℤ} (hn : 6 ∣ 11 * n) : 6 ∣ n := by
-  sorry
+  obtain ⟨j, hj⟩ := hn
+  use (-j + 2*n)
+  calc
+    n =  -11*n + 12*n := by ring
+    _ = -1*(11*n - 12*n) := by ring
+    _ = -1*(6*j - 12*n) := by rw[hj]
+    _ = -6*j + 12*n := by ring
+    _ = -6*(j - 2*n) := by ring
+    _ = 6*(-j + 2*n) := by ring
+
 
 example {a : ℤ} (ha : 7 ∣ 5 * a) : 7 ∣ a := by
   sorry

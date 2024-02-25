@@ -7,10 +7,10 @@ math2001_init
 
 example {x y : ℝ} (h : x = 1 ∨ y = -1) : x * y + x = y + 1 := by
   obtain hx | hy := h
-  calc
+  · calc
     x * y + x = 1 * y + 1 := by rw [hx]
     _ = y + 1 := by ring
-  calc
+  · calc
     x * y + x = x * -1 + x := by rw [hy]
     _ = -1 + 1 := by ring
     _ = y + 1 := by rw [hy]
@@ -38,7 +38,11 @@ example {x : ℝ} (hx : x ^ 2 - 3 * x + 2 = 0) : x = 1 ∨ x = 2 := by
     (x - 1) * (x - 2) = x ^ 2 - 3 * x + 2 := by ring
     _ = 0 := by rw [hx]
   have h2 := eq_zero_or_eq_zero_of_mul_eq_zero h1
-  sorry
+  obtain h2l | h2r := h2
+  left
+  addarith [h2l]
+  right
+  addarith [h2r]
 
 example {n : ℤ} : n ^ 2 ≠ 2 := by
   have hn0 := le_or_succ_le n 0

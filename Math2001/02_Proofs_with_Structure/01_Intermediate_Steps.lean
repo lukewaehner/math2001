@@ -42,13 +42,14 @@ example {a b : ℝ} (h1 : a ^ 2 = b ^ 2 + 1) (h2 : a ≥ 0) : a ≥ 1 := by
   have h3 :=
   calc
     a ^ 2 = b ^ 2 + 1 := by rw [h1]
-    _ ≥ 1 := by extra
+    _ ≥ 1 := by extra --b^2 is real and >= 0
     _ = 1 ^ 2 := by ring
   cancel 2 at h3
 
 
 example {x y : ℤ} (hx : x + 3 ≤ 2) (hy : y + 2 * x ≥ 3) : y > 3 := by
-  sorry
+  have hy2 : y >= 3 - 2*x := by addarith [hy]
+  have hx2 : x <= -1 := by addarith [hx]
 
 example (a b : ℝ) (h1 : -b ≤ a) (h2 : a ≤ b) : a ^ 2 ≤ b ^ 2 := by
   sorry
@@ -66,4 +67,9 @@ example {n : ℤ} (hn : n ^ 2 + 4 = 4 * n) : n = 2 := by
   sorry
 
 example (x y : ℚ) (h : x * y = 1) (h2 : x ≥ 1) : y ≤ 1 := by
-  sorry
+  have h3 : 0 < x*y := by extra
+  cancel x at h3
+  calc
+    1 = x*y := by rw[h]
+    _ >= 1*y := by rel[h2]
+    _ = y := by ring
