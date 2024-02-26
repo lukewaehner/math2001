@@ -61,3 +61,4 @@ theorem problem8 : (¬ ∀ a b : ℤ, a * b = 1 → a = 1 ∨ b = 1)
     ↔ ∃ a b : ℤ, a * b = 1 ∧ a ≠ 1 ∧ b ≠ 1 := by
   constructor
   intro ha
+--idk
