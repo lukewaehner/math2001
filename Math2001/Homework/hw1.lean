@@ -18,6 +18,7 @@ theorem problem1 {p q : ℤ} (h1 : p + 5 * q = 1) (h2 : q - 1 = 3) : p = -19 := 
     p = p + 5*q - 5*q := by ring
     _ = 1 - 5*q := by rw[h1]
     _ = 1 - 5*4 := by rw[h3]
+
 @[autograded 5]
 theorem problem2 {a b : ℝ} (h1 : a + 2 * b = 10) (h2 : a - b = -2) : a = 2 := by
   have h3 : b = a + 2 := by addarith[h2]
