@@ -120,17 +120,39 @@ example {x y : ℤ} (h1 : x - 3 * y = 5) (h2 : y = 3) : x = 14 :=
     _ = 14 := by numbers
 
 example {p q : ℚ} (h1 : p - 2 * q = 1) (h2 : q = -1) : p = -1 :=
-  sorry
+  calc
+    p = p - 2*q + 2*q := by ring
+    _ = 1 + 2*-1 := by rw[h1,h2]
+    _ = -1 := by numbers
 
 example {x y : ℚ} (h1 : y + 1 = 3) (h2 : x + 2 * y = 3) : x = -1 :=
-  sorry
+  have h3 : y = 2 := by addarith[h1]
+  calc
+    x = x + 2*y - 2*y := by ring
+    _ = 3 - 2*2 := by rw[h2, h3]
+    _ = -1 := by numbers
 
 example {p q : ℤ} (h1 : p + 4 * q = 1) (h2 : q - 1 = 2) : p = -11 :=
-  sorry
+  have h3 : q = 3 := by addarith[h2]
+  calc
+    p = p + 4*q - 4*q := by ring
+    _ = 1 - 4*3 := by rw[h1, h3]
+    _ = -11 := by numbers
 
 example {a b c : ℝ} (h1 : a + 2 * b + 3 * c = 7) (h2 : b + 2 * c = 3)
-    (h3 : c = 1) : a = 2 :=
-  sorry
+    (h3 : c = 1) : a = 2 := by
+  have h4 :=
+    calc
+      b+2 = b + 2*1 := by ring
+      _ = b+2*c := by rw[h3]
+      _ = 3 := by rw[h2]
+  have h5 : b = 1 := by addarith[h4]
+  calc
+    a = a + 2*b + 3*c - 2*b - 3*c := by ring
+    _ = 7 - 2*1 - 3*1 := by rw[h1, h3, h5]
+    _ = 7 - 2 - 3 := by ring
+    _ = 2 := by numbers
+
 
 example {u v : ℚ} (h1 : 4 * u + v = 3) (h2 : v = 2) : u = 1 / 4 :=
   sorry
