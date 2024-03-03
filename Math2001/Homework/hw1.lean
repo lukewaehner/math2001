@@ -61,6 +61,7 @@ theorem problem4 {x : ℚ} : x ^ 2 - 4 * x ≥ -4 := by
     _ = (x-2)^2 - 4 := by rw[h1]
     _ >= 0 - 4 := by rel[h2]
     _ = -4 := by numbers
+    -- complete the square
 
 
 @[autograded 5]

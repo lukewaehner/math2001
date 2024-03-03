@@ -39,26 +39,28 @@ theorem problem6 (P Q : Prop) : (P ∨ Q) ↔ (Q ∨ P) := by
 @[autograded 5]
 theorem problem7 (P : α → Prop) (Q : Prop) : ((∃ x, P x) ∧ Q) ↔ ∃ x, (P x ∧ Q) := by
   constructor
-  intro ha
-  obtain ⟨ a1, a2 ⟩ := ha
-  obtain ⟨ a, haa ⟩ := a1
-  use a
-  constructor
-  apply haa
-  apply a2
+  · intro ha
+    obtain ⟨ a1, a2 ⟩ := ha
+    obtain ⟨ a, haa ⟩ := a1
+    use a
+    constructor
+    apply haa
+    apply a2
 
-  intro hb
-  obtain ⟨ b1, b2 ⟩ := hb
-  obtain ⟨ bb1, bb2 ⟩ := b2
-  constructor
-  use b1
-  use bb1
-  use bb2
+  · intro hb
+    obtain ⟨ b1, b2 ⟩ := hb
+    obtain ⟨ bb1, bb2 ⟩ := b2
+    constructor
+    use b1
+    apply bb1
+    apply bb2
 
 
 @[autograded 4]
 theorem problem8 : (¬ ∀ a b : ℤ, a * b = 1 → a = 1 ∨ b = 1)
     ↔ ∃ a b : ℤ, a * b = 1 ∧ a ≠ 1 ∧ b ≠ 1 := by
-  constructor
-  intro ha
---idk
+    calc (¬ ∀ a b : ℤ, a * b = 1 → a = 1 ∨ b = 1)
+      ↔ ∃ a, ¬(∀ b : ℤ, a * b = 1 → a = 1 ∨ b = 1) := by rel[not_forall]
+      _ ↔ ∃ a b : ℤ, ¬ (a * b = 1 → a = 1 ∨ b = 1) := by rel[not_forall]
+      _ ↔ ∃ a b : ℤ, a*b = 1 ∧ ¬(a = 1 ∨ b = 1) := by rel[not_imp]
+      _ ↔ ∃ a b : ℤ, a*b = 1 ∧ a ≠ 1 ∧ b ≠ 1 := by rel[not_or]

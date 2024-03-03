@@ -90,7 +90,6 @@ theorem problem7 : ∃ x : ℝ, x < 0 ∧ x ^ 2 < 1 := by
   constructor
   numbers
   numbers
-
 @[autograded 5]
 theorem problem8 (x : ℚ) : ∃ y : ℚ, y ^ 2 > x := by
   use x + 1
