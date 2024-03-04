@@ -154,14 +154,37 @@ example {a b c : ℝ} (h1 : a + 2 * b + 3 * c = 7) (h2 : b + 2 * c = 3)
     _ = 2 := by numbers
 
 
-example {u v : ℚ} (h1 : 4 * u + v = 3) (h2 : v = 2) : u = 1 / 4 :=
-  sorry
+example {u v : ℚ} (h1 : 4 * u + v = 3) (h2 : v = 2) : u = 1 / 4 := by
+  have h3 :=
+    calc 4*u + 2  = 4*u + v := by rw[h2]
+    _ = 3 := by rw[h1]
+  have h4 : 4*u = 1 := by addarith[h3]
 
-example {c : ℚ} (h1 : 4 * c + 1 = 3 * c - 2) : c = -3 :=
-  sorry
+  calc
+    u = 4*u/4 := by ring
+    _ = 1/4 := by rw[h4]
 
-example {p : ℝ} (h1 : 5 * p - 3 = 3 * p + 1) : p = 2 :=
-  sorry
+example {c : ℚ} (h1 : 4 * c + 1 = 3 * c - 2) : c = -3 := by
+  have h2 : 4*c = 3*c -3 := by addarith[h1]
+  calc
+    c = 4*c - 3*c := by ring
+    _ = 3*c - 3 - 3*c := by rw[h2]
+    _ = -3 := by ring
+
+example {p : ℝ} (h1 : 5 * p - 3 = 3 * p + 1) : p = 2 := by
+  have h2 : 5*p = 3*p + 4 := by addarith[h1]
+  have h3 :=
+    calc
+      5*p - 3*p = 3*p + 4 - 3*p := by rw[h2]
+      _ = 4 := by ring
+  have h4 :=
+    calc
+      4 = 5*p - 3*p := by rw[h3]
+      _ = 2*p := by ring
+  calc
+    p = 2*p/2 := by ring
+    _ = 4/2 := by rw[h4]
+    _ = 2 := by ring
 
 example {x y : ℤ} (h1 : 2 * x + y = 4) (h2 : x + y = 1) : x = 3 :=
   sorry

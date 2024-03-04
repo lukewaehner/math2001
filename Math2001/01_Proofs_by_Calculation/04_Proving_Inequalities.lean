@@ -127,22 +127,42 @@ example {x y : ℤ} (h1 : x + 3 ≥ 2 * y) (h2 : 1 ≤ y) : x ≥ -1 :=
 
 
 example {a b : ℚ} (h1 : 3 ≤ a) (h2 : a + 2 * b ≥ 4) : a + b ≥ 3 :=
+  have h3 :=
+    calc
+      a + b = a + 2*b - b := by ring
+      _ >= 4 - b := by rel[h2]
+
+    sorry
+
+
+example {x : ℤ} (hx : x ≥ 9) : x ^ 3 - 8 * x ^ 2 + 2 * x ≥ 3 := by
   calc
-    a + b = a + 2*b - b := by ring
-    _ >= 4 - b := by rel[h2]
-    _
+    x^3 - 8*x^2 + 2*x = x*x*x - 8*x*x + 2*x := by ring
+    _ >= 9*x*x - 8*x*x + 2*x := by rel[hx]
+    _ = x*x + 2*x := by ring
+    _ >= 9*x + 2*x := by rel[hx]
+    _ = 11*x := by ring
+    _ >= 11*9 := by rel[hx]
+    _ = 99 := by numbers
+    _ >= 3 := by numbers
 
-
-example {x : ℤ} (hx : x ≥ 9) : x ^ 3 - 8 * x ^ 2 + 2 * x ≥ 3 :=
+example {n : ℤ} (hn : n ≥ 10) : n ^ 4 - 2 * n ^ 2 > 3 * n ^ 3 := by
   calc
-    x^3 - 8*x^2 + 2*x = x*(x^2 - 8*x + 2) := by ring
-    _ =
+    n^4 - 2*n^2  = n^2*(n^2-2) := by ring
+    _ = n*n*(n*n-2) := by ring
+    _ >= n*n*(10*n-2) := by rel[hn]
+    _ = 10*n^3 - 2*n^2 := by ring
 
-example {n : ℤ} (hn : n ≥ 10) : n ^ 4 - 2 * n ^ 2 > 3 * n ^ 3 :=
-  sorry
 
-example {n : ℤ} (h1 : n ≥ 5) : n ^ 2 - 2 * n + 3 > 14 :=
-  sorry
+
+example {n : ℤ} (h1 : n ≥ 5) : n ^ 2 - 2 * n + 3 > 14 := by
+  calc
+    n ^ 2 - 2 * n + 3 = n*n - 2*n + 3 := by ring
+    _ >= 5*n - 2*n + 3 := by rel[h1]
+    _ = 3*n + 3 := by ring
+    _ >= 3*5 + 3 := by rel[h1]
+    _ = 18 := by numbers
+    _ > 14 := by numbers
 
 example {x : ℚ} : x ^ 2 - 2 * x ≥ -1 :=
   sorry
