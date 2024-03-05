@@ -13,7 +13,8 @@ example : Odd (7 : ℤ) := by
 
 
 example : Odd (-3 : ℤ) := by
-  sorry
+  use -2
+  numbers
 
 example {n : ℤ} (hn : Odd n) : Odd (3 * n + 2) := by
   dsimp [Odd] at *
@@ -65,7 +66,8 @@ example : Odd (-9 : ℤ) := by
   sorry
 
 example : Even (26 : ℤ) := by
-  sorry
+  use 13
+  numbers
 
 example {m n : ℤ} (hm : Odd m) (hn : Even n) : Odd (n + m) := by
   sorry

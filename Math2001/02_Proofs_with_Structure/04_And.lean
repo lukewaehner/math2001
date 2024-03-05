@@ -55,7 +55,12 @@ example {a b : ℝ} (h1 : a ^ 2 + b ^ 2 = 0) : a = 0 ∧ b = 0 := by
 
 
 example {a b : ℚ} (H : a ≤ 1 ∧ a + b ≤ 3) : 2 * a + b ≤ 4 := by
-  sorry
+  obtain ⟨h1, h2⟩ := H
+  calc
+    2*a + b = a+(a+b) := by ring
+    _ <= a + 3 := by rel[h2]
+    _ <= 1 + 3 := by rel[h1]
+    _ = 4 := by numbers
 
 example {r s : ℝ} (H : r + s ≤ 1 ∧ r - s ≤ 5) : 2 * r ≤ 6 := by
   sorry

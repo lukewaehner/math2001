@@ -76,8 +76,13 @@ example {n : ℤ} : n ^ 2 ≠ 2 := by
 
 
 example {x : ℚ} (h : x = 4 ∨ x = -4) : x ^ 2 + 1 = 17 := by
-  sorry
-
+  obtain h1 | h2 := h
+  calc
+    x^2 + 1 = 4^2 + 1 := by rw[h1]
+    _ = 17 := by numbers
+  calc
+    x^2 + 1 = (-4)^2 + 1 := by rw[h2]
+    _ = 17 := by numbers
 example {x : ℝ} (h : x = 1 ∨ x = 2) : x ^ 2 - 3 * x + 2 = 0 := by
   sorry
 
@@ -88,7 +93,8 @@ example {x y : ℝ} (h : x = 2 ∨ y = -2) : x * y + 2 * x = 2 * y + 4 := by
   sorry
 
 example {s t : ℚ} (h : s = 3 - t) : s + t = 3 ∨ s + t = 5 := by
-  sorry
+  left
+  addarith[h]
 
 example {a b : ℚ} (h : a + 2 * b < 0) : b < a / 2 ∨ b < - a / 2 := by
   sorry
@@ -106,7 +112,7 @@ example {t : ℝ} (ht : t ^ 3 = t ^ 2) : t = 1 ∨ t = 0 := by
   sorry
 
 example {n : ℕ} : n ^ 2 ≠ 7 := by
-  sorry
+  apply le_or_succ_le n 2
 
 example {x : ℤ} : 2 * x ≠ 3 := by
   sorry
