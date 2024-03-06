@@ -51,7 +51,14 @@ example {n : ℤ} (hn : 6 ∣ 11 * n) : 6 ∣ n := by
 
 
 example {a : ℤ} (ha : 7 ∣ 5 * a) : 7 ∣ a := by
-  sorry
+  obtain ⟨j, hj⟩ := ha
+  use (3*j-2*a)
+  calc
+    a = 15*a - 14*a := by ring
+    _ = 3*(5*a) - 14*a := by ring
+    _ = 3*(7*j) - 14*a := by rw[hj]
+    _ = 21*j - 14*a := by ring
+    _ = 7*(3*j-2*a) := by ring
 
 example {n : ℤ} (h1 : 7 ∣ n) (h2 : 9 ∣ n) : 63 ∣ n := by
   sorry
