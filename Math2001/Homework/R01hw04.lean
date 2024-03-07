@@ -84,7 +84,6 @@ theorem problem4 : ¬ (∃ a : ℝ, a ^ 2 ≤ 6 ∧ a ^ 3 ≥ 32) := by
         _ <= 18 := by rel[test2]
   numbers at finalize
 
-
 @[autograded 5]
 theorem problem5 (n : ℤ) : ¬(n ^ 2 ≡ 2 [ZMOD 4]) := by
 -- dsimp [Int.ModEq] at *
@@ -114,6 +113,7 @@ mod_cases hx: n % 4
       _ ≡ n^2 [ZMOD 4] := by rel[hx]
       _ ≡ 2 [ZMOD 4] := by rel[x]
   numbers at h
+
 
 
 

@@ -51,7 +51,7 @@ theorem problem3 {x : ℤ} (hx : x ≥ 8) : x ^ 3 - 7 * x ^ 2 + 4 * x > 75 := by
     _ >= 12*8 := by rel[hx]
     _ = 96 := by numbers
     _ > 75 := by numbers
-
+    --kill the powers to a int
 @[autograded 5]
 theorem problem4 {x : ℚ} : x ^ 2 - 4 * x ≥ -4 := by
   have h1 : x^2 - 4*x + 4 = (x-2)^2 := by ring

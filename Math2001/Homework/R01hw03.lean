@@ -44,13 +44,14 @@ theorem problem02 (n : ℤ) : Odd (3 * n ^ 2 + 7 * n + 9) := by
     3*n^2 + 7*n + 9 = 3*(2*t + 1)^2 + 7*(2*t+1) + 9 := by rw[ht]
     _ = 12*t^2 + 26*t + 19 := by ring
     _ = 2*(6*t^2 + 13*t + 9) + 1 := by ring
-
+    --test if n is even or odd
 
 @[autograded 2]
 theorem problem03 : (4 : ℤ) ∣ -20 := by
   dsimp [(· ∣ ·)]
   use -5
   numbers
+    --4k = -20
 
 @[autograded 3]
 theorem problem04 : ¬(4 : ℤ) ∣ -10 := by
@@ -59,6 +60,8 @@ theorem problem04 : ¬(4 : ℤ) ∣ -10 := by
   constructor
   numbers
   numbers
+    --4k = -10 ?? no int fits that.
+    --Can be shown by 4(-3) < -10 && 4(-3+1) > -10
 
 @[autograded 4]
 theorem problem05 {a b c : ℤ} (hab : a ^ 2 ∣ b) (hbc : b ^ 3 ∣ c) : a ^ 6 ∣ c := by
@@ -71,6 +74,10 @@ theorem problem05 {a b c : ℤ} (hab : a ^ 2 ∣ b) (hbc : b ^ 3 ∣ c) : a ^ 6 
     _ = (a^2*x)^3 * y := by rw[hx]
     _ = a^6*x^3 * y := by ring
     _ = a^6*(x^3*y) := by ring
+
+    -- parse it all out and just manuever it through.
+    -- It works eventually its just a substitution problem
+
 @[autograded 4]
 theorem problem06 (h1 : a ≡ b [ZMOD n]) (h2 : b ≡ c [ZMOD n]) : a ≡ c [ZMOD n] := by
   obtain ⟨x, hx⟩ := h1
@@ -141,3 +148,5 @@ theorem problem10 {x : ℤ} : x ^ 5 ≡ x [ZMOD 5] := by
       _ = 4 + 5*204 := by numbers
       _ ≡ 4 [ZMOD 5] := by extra
       _ ≡ x [ZMOD 5] := by rel[hx]
+
+  -- mod residues

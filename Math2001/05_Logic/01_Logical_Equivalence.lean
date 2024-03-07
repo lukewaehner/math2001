@@ -81,8 +81,8 @@ example (P : α → Prop) : ¬ (∃ x, P x) ↔ ∀ x, ¬ P x := by
 
 
 example {P Q : Prop} (h : P ∧ Q) : P ∨ Q := by
-  sorry
 
+#truth_table P → Q
 example {P Q R : Prop} (h1 : P → Q) (h2 : P → R) (h3 : P) : Q ∧ R := by
   sorry
 
@@ -95,6 +95,8 @@ example {P Q : Prop} (h1 : P ↔ ¬ Q) (h2 : Q) : ¬ P := by
 example {P Q : Prop} (h1 : P ∨ Q) (h2 : Q → P) : P := by
   sorry
 
+#truth_table P ↔ Q
+#truth_table (P ∧ R) ↔ (Q ∧ R)
 example {P Q R : Prop} (h : P ↔ Q) : (P ∧ R) ↔ (Q ∧ R) := by
   sorry
 
