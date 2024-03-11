@@ -17,7 +17,7 @@ example (n : ℕ) : 2 ^ n ≥ n + 1 := by
 
 -- Induction Example 3 from my slides
 -- Cf. also Example 6.2.4
-example (n : ℕ) : Finset.sum (range (n + 1)) (fun i : ℕ ↦ 2*i) =  n * (n + 1) := by
+example (n : ℕ) : 2*(Finset.sum (range (n + 1)) (fun i : ℕ ↦ i)) =  n * (n + 1) := by
   sorry
 
 
