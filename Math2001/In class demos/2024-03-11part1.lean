@@ -12,25 +12,42 @@ namespace Nat
 
 -- Induction Example 6.1.1
 example (n : ℕ) : 2 ^ n ≥ n + 1 := by
-  sorry
+  simple_induction n with k IH
+  · numbers
+  · calc
+    2^(k+1) = 2*2^k := by ring
+    _ ≥ 2 * (k + 1) := by rel [IH]
+    _ = (k + 1 + 1) + k := by ring
+    _ ≥ k + 1 + 1 := by extra
 
 
 -- Induction Example 3 from my slides
 -- Cf. also Example 6.2.4
-example (n : ℕ) : 2*(Finset.sum (range (n + 1)) (fun i : ℕ ↦ i)) =  n * (n + 1) := by
-  sorry
 
+example (n : ℕ) : 2*(Finset.sum (range (n + 1)) (fun i : ℕ ↦ i)) =  n * (n + 1) := by
+  symm;
+  simple_induction n with k IH
+  · rfl -- since it sums the range from 0 to 0+1, it only does 0-0, so you can just define it as 0
+  · rw [Finset.sum_range_succ]
+    rw [mul_add 2]
+    rw [← IH]
+    ring
 
 -- Example 6.1.6
 example : forall_sufficiently_large n : ℕ, 2 ^ n ≥ n ^ 2 := by
-  sorry
-
-
-
-
-
-
-
+  use 4
+  intro n hn
+  induction_from_starting_point n, hn with k hk IH
+  · numbers
+  · calc
+    2^(k+1) = 2*2^k := by ring
+    _ ≥ 2*k^2 := by rel[IH]
+    _ = k^2 + k*k := by ring
+    _ ≥ k^2 + 4*k := by rel[hk]
+    _ = k^2 + 2*k + 2*k := by ring
+    _ ≥ k^2 + 2*k + 2*4 := by rel[hk]
+    _ = (k+1)^2 + 7 := by ring
+    _ >= (k+1)^2 := by extra
 
 
 -- Recurrence relations
@@ -46,10 +63,14 @@ def b : ℕ → ℕ
 
 -- Example from slides
 example (n : ℕ) : b n = 2^n := by
-  sorry
-
-
-
+  simple_induction n with k IH
+  calc
+    b 0 = 1 := by rw[b]
+    _ = 2^0 := by numbers
+  calc
+    b (k+1) = 2*(b k) := by rw[b]
+    _ = 2*(2^k) := by rw[IH]
+    _ = 2^(k+1) := by ring
 
 -- Example 6.2.2
 
@@ -59,4 +80,12 @@ def x : ℕ → ℤ
 
 
 example (n : ℕ) : x n ≡ 1 [ZMOD 4] := by
-  sorry
+  simple_induction n with k IH
+  calc
+    x 0 = 5 := by rw[x]
+    _ = 1+4*1 := by ring
+    _ ≡ 1 [ZMOD 4] := by extra
+  calc
+    x (k+1) = 2*(x k) - 1 := by rw[x]
+    _ ≡ 2*1 - 1 [ZMOD 4] := by rel [IH]
+    _ = 1 := by ring
