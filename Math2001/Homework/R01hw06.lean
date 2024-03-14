@@ -29,7 +29,10 @@ theorem problem1 : forall_sufficiently_large n : ℕ, (3:ℤ) ^ n ≥ 2 ^ n + 10
   sorry
 
 @[autograded 4]
-theorem problem2 : : 6*(Finset.sum (range (n + 1)) (fun i : ℕ ↦ i^2)) =  n * (n + 1)*(2*n+1) := by
+/-
+It is possible, perhaps even likely that you will get an error in the autograder for this problem, even if you get no errors in GitPod. You may ignore the autograder errors in Gradescope as long as it runs correctly in GitPod.
+-/ 
+theorem problem2 : 6*(Finset.sum (range (n + 1)) (fun i : ℕ ↦ i^2)) =  n * (n + 1)*(2*n+1) := by
   sorry
 
 
