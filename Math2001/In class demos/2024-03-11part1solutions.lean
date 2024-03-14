@@ -29,7 +29,7 @@ example (n : ℕ) : 2*(Finset.sum (range (n + 1)) (fun i : ℕ ↦ i)) =  n * (n
   · rfl
   · calc
       2*(Finset.sum (range (k + 1 +1)) (fun i : ℕ ↦ i)) = 2*(Finset.sum (range (k + 1)) (fun i : ℕ ↦ i) +(k+1)) := by rw [Finset.sum_range_succ]
-      _ = 2*(Finset.sum (range (k + 1)) (fun i : ℕ ↦ i)) +2*(k+1) := by rw [mul_add 2]
+      _ = 2*(Finset.sum (range (k + 1)) (fun i : ℕ ↦ i)) +2*(k+1) := by ring
       _ = (k*(k+1)) + 2*(k+1) := by rw [IH]
       _ = (k+1)*(k+1+1) := by ring
 
