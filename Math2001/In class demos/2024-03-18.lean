@@ -19,23 +19,48 @@ def q (x : ℝ) : ℝ := 2*x + 5
 
 
 example : Injective q := by
-  sorry
+  dsimp [Injective]
+  intro x1 x2
+  intro h
+  calc
+    x1 = (1/2)*( (2*x1 + 5)-5) := by ring
+    _ = (1/2)*((q x1) - 5) := by rw[q]
+    _ = (1/2)*((q x2) - 5) := by rw[h]
+    _ = (1/2)*((2*x2+5)-5) := by rw[q]
+    _ = x2 := by ring
+
 
 
 example : ¬ Injective (fun x : ℝ ↦ x ^ 2) := by
-  sorry
-
+  dsimp [Injective]
+  push_neg
+  use -5, 5
+  constructor
+  numbers
+  numbers
 
  example : Surjective q := by
-  sorry
-
+  dsimp [Surjective]
+  intro y
+  use (y-5)/2
+  calc
+    q ((y-5)/2) = 2*((y-5)/2) + 5 := by rw[q]
+    _ = y := by ring
 
 example : ¬ Surjective (fun x : ℝ ↦ x ^ 2) := by
-  sorry
+  dsimp [Surjective]
+  push_neg
+  use -5
+  intro x
+  apply ne_of_gt
+  calc
+    -5 < 0 := by numbers
+    _ ≤ x^2 := by extra
 
 
 example : Bijective q := by
-  sorry
+  dsimp [Bijective]
+
 
 
 
@@ -61,4 +86,17 @@ def t (x : ℝ) : ℝ := (x-5)/2
 #check @t -- infoview displays `q : ℝ → ℝ`
 
 example : Inverse q t := by
-  sorry
+  dsimp[Inverse]
+  constructor
+  · ext x
+    calc
+      (t ∘  q) x = t (q x) := by rfl
+      _ = t (2*x + 5 ) := by rw[q]
+      _ = ((2*x+5)-5)/2 := by rw[t]
+      _ = x := by ring
+      _ = id x := by rw [id]
+  · ext x
+    calc
+      (q ∘ t) x = q(t x) := by rfl
+      _ = q ((x-5)/2) := by rw[t]
+      _ = 2*((x-5)//2)+5 := by rw[q]

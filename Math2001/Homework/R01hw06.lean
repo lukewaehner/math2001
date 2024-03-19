@@ -45,10 +45,10 @@ theorem problem2 (n : ℕ) : 6*(Finset.sum (range (n + 1)) (fun i : ℕ ↦ i^2)
   simple_induction n with k IH
   · rfl
   calc
-    6*(Finset.sum (range (k + 1 +1)) (fun i : ℕ ↦ i^2)) = 6*(Finset.sum (range (k + 1)) (fun i : ℕ ↦ i^2) +(k+1)) := by rw [Finset.sum_range_succ]
-     _ = 6*(Finset.sum (range (k + 1)) (fun i : ℕ ↦ i^2)) +6*(k+1) := by ring
-     _ = (k * (k + 1) * (2 * k + 1)) + 6*(k+1) := by rw[IH]
-     _ = (k + 1) * (k + 1 + 1) * (2 * (k + 1) + 1) := by ring
+    6* (Finset.sum (range (k+1 +1)) (fun i : ℕ ↦ i^2)) = 6*(Finset.sum (range (k+1)) (fun i : ℕ ↦ i^2) + (k+1)^2) := by rw[Finset.sum_range_succ]
+    _ = 6*(Finset.sum (range (k+1)) (fun i : ℕ ↦ i^2)) + 6*(k+1)^2 := by ring
+    _ = k*(k+1)*(2*k+1) + 6*(k+1)^2 := by rw[IH]
+    _ = (k+1)*(k+2)*(2*k+3) := by ring
 
 
 --separate
@@ -108,5 +108,28 @@ strong induction
 -/
 @[autograded 4]
 theorem problem4 (n : ℕ) (hn : 0 < n) : ∃ a x, Odd x ∧ n = 2 ^ a * x := by
-  obtain h1 | h2 := Int.even_or_odd n
-  obtain ⟨y, hy⟩ := h1
+  obtain h1 | h1 := Nat.even_or_odd n
+  obtain ⟨k, hk⟩ := h1
+  have hxn : 2*k > 2*0 := by
+    calc
+      2*k = n := by rw[hk]
+      _ > 0 := by rel[hn]
+      _ = 2*0 := by numbers
+  cancel 2 at hxn
+
+  have IH1 := problem4 k hxn
+  obtain ⟨ak, xk, haxk⟩ := IH1
+  use ak+1, xk
+  constructor
+  apply haxk.1
+  calc
+    n = 2*k := by rw[hk]
+    _ = 2*(2 ^ ak * xk) := by rw[haxk.2]
+    _ = 2^(ak+1)*xk := by ring
+
+  use 0, n
+  constructor
+  apply h1
+  calc
+    n = 1*n := by ring
+    _ = 2^0*n := by ring
