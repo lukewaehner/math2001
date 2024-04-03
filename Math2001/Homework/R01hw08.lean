@@ -58,7 +58,8 @@ theorem problem3b : ¬ ∀ (f : ℚ → ℚ), Injective f → Injective (fun x �
 
 
 @[autograded 5]
-theorem problem4 {f : X → Y} (hf : Surjective f) {g : Y → Z} (hg : Surjective g) := by
+theorem problem4 {f : X → Y} (hf : Surjective f) {g : Y → Z} (hg : Surjective g) :
+    Surjective (g ∘ f) := by
   sorry
 
 
