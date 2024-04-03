@@ -81,8 +81,8 @@ theorem problem6 : Surjective (fun ((a, b) : ℚ × ℕ) ↦ a ^ b) := by
 
 
 @[autograded 4]
-theorem problem7 :
-    sorry
+theorem problem7 : ¬ Injective (fun ((x, y, z) : ℝ × ℝ × ℝ) ↦ (x + y + z, x + 2 * y + 3 * z)) := by
+  sorry
 
 
 @[autograded 4]
