@@ -50,7 +50,6 @@ theorem problem2 (n : ℕ) : 6*(Finset.sum (range (n + 1)) (fun i : ℕ ↦ i^2)
     _ = k*(k+1)*(2*k+1) + 6*(k+1)^2 := by rw[IH]
     _ = (k+1)*(k+2)*(2*k+3) := by ring
 
-
 --separate
 def b : ℕ → ℤ
   | 0 => 0

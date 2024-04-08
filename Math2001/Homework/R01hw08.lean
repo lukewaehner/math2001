@@ -21,14 +21,15 @@ for clearer statements and any special instructions.
 -- Comment out or delete the unused portion
 @[autograded 4]
 theorem problem1a : Surjective (fun (x : ℝ) ↦ 2 * x) := by
-  sorry
+  dsimp [Surjective]
+  intro b
+  use (b/2)
+  calc
+    2*(b/2) = b := by ring
 
-@[autograded 4]
-theorem problem1b : ¬ Surjective (fun (x : ℝ) ↦ 2 * x) := by
-  sorry
-
-
-
+-- @[autograded 4]
+-- theorem problem1b : ¬ Surjective (fun (x : ℝ) ↦ 2 * x) := by
+--   sorry
 
 namespace Int
 
@@ -40,7 +41,22 @@ theorem problem2a : Surjective (fun (x : ℤ) ↦ 2 * x) := by
 
 @[autograded 5]
 theorem problem2b : ¬ Surjective (fun (x : ℤ) ↦ 2 * x) := by
-  sorry
+  dsimp [Surjective]
+  push_neg
+  use 1
+  intro a
+  have ha := le_or_succ_le a 0
+  obtain h1 | h2 := ha
+  apply ne_of_lt
+  calc
+    2*a <= 2 * 0 := by rel[h1]
+    _ < 1 := by extra
+  apply ne_of_gt
+  calc
+    2 * a >= 2 * 1 := by rel[h2]
+    _ = 1+1 := by ring
+    _ > 1 := by extra
+
 
 end Int
 
@@ -49,18 +65,23 @@ end Int
 -- Comment out or delete the unused portion
 @[autograded 5]
 theorem problem3a : ∀ (f : ℚ → ℚ), Injective f → Injective (fun x ↦ f x + 1) := by
-  sorry
+  dsimp [Injective]
+  intro a b c d e
+  have h2: a c = a d := by addarith[e]
+  apply b at h2
+  apply h2
 
-
-@[autograded 5]
-theorem problem3b : ¬ ∀ (f : ℚ → ℚ), Injective f → Injective (fun x ↦ f x + 1) := by
-  sorry
+-- @[autograded 5]
+-- theorem problem3b : ¬ ∀ (f : ℚ → ℚ), Injective f → Injective (fun x ↦ f x + 1) := by
+--   sorry
 
 
 @[autograded 5]
 theorem problem4 {f : X → Y} (hf : Surjective f) {g : Y → Z} (hg : Surjective g) :
     Surjective (g ∘ f) := by
-  sorry
+  dsimp [Surjective] at *
+  intro z
+
 
 
 
