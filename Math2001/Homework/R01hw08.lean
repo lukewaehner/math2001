@@ -35,9 +35,9 @@ namespace Int
 
 -- Do 2a or 2b, but not both
 -- Comment out or delete the unused portion
-@[autograded 5]
-theorem problem2a : Surjective (fun (x : ℤ) ↦ 2 * x) := by
-  sorry
+-- @[autograded 5]
+-- theorem problem2a : Surjective (fun (x : ℤ) ↦ 2 * x) := by
+--   sorry
 
 @[autograded 5]
 theorem problem2b : ¬ Surjective (fun (x : ℤ) ↦ 2 * x) := by
@@ -79,41 +79,76 @@ theorem problem3a : ∀ (f : ℚ → ℚ), Injective f → Injective (fun x ↦ 
 @[autograded 5]
 theorem problem4 {f : X → Y} (hf : Surjective f) {g : Y → Z} (hg : Surjective g) :
     Surjective (g ∘ f) := by
-  dsimp [Surjective] at *
-  intro z
-
-
+    dsimp [Surjective]
+    intro c
+    obtain ⟨b, h1⟩  := hg c
+    obtain ⟨a, h2⟩  := hf b
+    use a
+    calc
+      (g ∘ f) a = g (f a) := by rfl
+      _ = g (b) := by rw[h2]
+      _ = c := by rw[h1]
 
 
 -- Do 5a or 5b, but not both
 -- Comment out or delete the unused portion
 @[autograded 4]
 theorem problem5a : Bijective (fun (x : ℝ) ↦ 4 - 3 * x) := by
-  sorry
+  constructor
+  dsimp [Injective]
+  intro a b h1
+  have h2 : -3*a = -3*b := by addarith[h1]
+  cancel -3 at h2
+
+  dsimp [Surjective]
+  intro b
+  use ((4-b)/3)
+  calc
+    4 - 3 * ((4-b) / 3) = b := by ring
 
 
-@[autograded 4]
-theorem problem5b : ¬ Bijective (fun (x : ℝ) ↦ 4 - 3 * x) := by
-  sorry
+-- @[autograded 4]
+-- theorem problem5b : ¬ Bijective (fun (x : ℝ) ↦ 4 - 3 * x) := by
+--   sorry
 
 
 @[autograded 4]
 theorem problem6 : Surjective (fun ((a, b) : ℚ × ℕ) ↦ a ^ b) := by
-  sorry
-
+  dsimp [Surjective]
+  intro c
+  use (c, 1)
+  ring
 
 @[autograded 4]
 theorem problem7 : ¬ Injective (fun ((x, y, z) : ℝ × ℝ × ℝ) ↦ (x + y + z, x + 2 * y + 3 * z)) := by
-  sorry
-
+  dsimp [Injective]
+  push_neg
+  use (0,0,0)
+  use (2, -4, 2)
+  constructor
+  numbers
+  numbers
 
 @[autograded 4]
 theorem problem8 : ¬ Surjective (fun ((x, y) : ℚ × ℚ) ↦ x ^ 2 + y ^ 2) := by
-  sorry
+  dsimp [Surjective]
+  push_neg
+  use -1
+  intro x
+  apply ne_of_gt
+  calc
+    -1 < 0 := by numbers
+    _ <= x.1^ 2 + x.2 ^ 2 := by extra
 
 
 @[autograded 4]
 theorem problem9 : Bijective (fun ((r, s) : ℚ × ℚ) ↦ (s, r - s)) := by
   rw [bijective_iff_exists_inverse]
-  use fun (a, b) ↦ (sorry,sorry)
-  sorry
+  use fun (a, b) ↦ (b+a,a)
+  constructor
+  · ext ⟨ r , s ⟩
+    dsimp
+    ring
+  · ext ⟨ a, b ⟩
+    dsimp
+    ring
