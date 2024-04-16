@@ -79,11 +79,8 @@ theorem problem3b : {1, 2, 3} ≠ {1, 2} := by
 @[autograded 4]
 theorem problem4 : { r : ℤ | r ≡ 7 [ZMOD 10] }
     ⊆ { s : ℤ | s ≡ 1 [ZMOD 2] } ∩ { t : ℤ | t ≡ 2 [ZMOD 5] } := by
-  dsimp [Set.subset_def]
   intro n hn
   constructor
-  dsimp [Int.ModEq] at *
-  dsimp [(· ∣ ·)] at *
   obtain ⟨ x, hx ⟩ := hn
   have he : n - 1 = 10*x + 6 := by addarith[hx]
   use (5*x + 3)
@@ -91,8 +88,6 @@ theorem problem4 : { r : ℤ | r ≡ 7 [ZMOD 10] }
     n - 1 = 10*x + 6 := he
     _ = 2*(5*x + 3) := by ring
 
-  dsimp [Int.ModEq] at *
-  dsimp [(· ∣ ·)] at *
   obtain ⟨ x, hx ⟩ := hn
   use (2*x + 1)
   calc
@@ -109,4 +104,9 @@ open Set
 theorem problem5 (h : A ⊆ B) : A ∩ C ⊆ B ∩ C := by
   dsimp [Set.subset_def]
   intro x hx
-  sorry
+  constructor
+  obtain ⟨ h1, h2 ⟩ := hx
+  apply h h1
+
+  obtain ⟨ h1 , h2 ⟩  := hx
+  apply h2
