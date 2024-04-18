@@ -12,7 +12,6 @@ Don't forget to compare with the pdf version
 for clearer statements and any special instructions.
 -/
 
-section
 local infix:50 "∼" => fun (x y : ℤ) ↦ y ≡ x + 1 [ZMOD 5]
 
 
@@ -51,7 +50,6 @@ theorem problem1d1 : Transitive (· ∼ ·) := by
 theorem problem1d2 : ¬ Transitive (· ∼ ·) := by
   sorry
 
-end
 
 
 -- For each part a,b,c,d
